@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <div style="display: none" id="jsonData" data-json="{{ data }}"></div>
+    <header>
+        {% if data.gituserByName is not defined %}
+        <h2>Name - {{ data.gituserByName.name }}</h2>
+        {%else%}
+        <h2>Git Hub User not find :(</h2>
+        {%endif%}
+        <ul>
+            <h3>List of repositories:</h3>
+            {% for rep in data.gituserByName.repositories %}
+            <li>
+                <p>{{rep.name}}</p>
+                {%endfor%}
+            </li>
+        </ul>
+        <div>
+            <a href="/get-info/">New search</a>
+        </div>
+    </header>
+    <section>
+
+    </section>
+
+</body>
+
+</html>
