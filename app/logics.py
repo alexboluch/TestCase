@@ -2,11 +2,13 @@ import requests
 from django.conf import settings
 from .models import GitUser, Repository
 import json
+# from django.contrib.sites.models import Site
 
+# SITE_URL = Site.objects.get_current().domain
+# SITE_URL = "git.heroku.com/obscure-fjord-35629.git"
 def get_from_graph(username):
-    url = "http://127.0.0.1:8000/api-graphql"
-    query = "query { gituserByName(username: \"" + username 
-    + "\") { username name repositories{ id name description url } } } "
+    url = "https://obscure-fjord-35629.herokuapp.com/api-graphql"
+    query = "query { gituserByName(username: \"" + username + "\") { username name repositories{ id name description url } } } "
     data = {"query":query}
     headers = {'Content-Type': 'application/json'}
     res = requests.post(url, data=data)
@@ -98,6 +100,7 @@ def get_data_and_create_instance(username):
 
 
 def handler_logic(username):
+    username = username.lower()
     if check_user_in_bd(username) is True:
         try:
             return get_from_graph(username)
